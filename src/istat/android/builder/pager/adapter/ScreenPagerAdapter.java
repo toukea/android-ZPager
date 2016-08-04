@@ -1,14 +1,12 @@
 package istat.android.builder.pager.adapter;
 
 import istat.android.base.fragments.ScreenPage;
-import istat.android.builder.pager.indicator.IconPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 
 /**
@@ -16,7 +14,7 @@ import android.support.v4.app.FragmentTransaction;
  * sequence.
  */
 public class ScreenPagerAdapter extends IstatPagerAdapter
-/* FragmentPagerAdapter */implements IconPagerAdapter {
+/* FragmentPagerAdapter */{
 	protected List<Fragment> screens = new ArrayList<Fragment>();
 	protected FragmentManager mFragmentManager;
 	int fixedCount = -1;
@@ -58,12 +56,12 @@ public class ScreenPagerAdapter extends IstatPagerAdapter
 	public void removeScreen(int position) {
 		screens.remove(position);
 		FragmentTransaction t = mFragmentManager.beginTransaction();
-			t.remove(mFragmentManager.findFragmentByTag("SCREEN:" + position));
+		t.remove(mFragmentManager.findFragmentByTag("SCREEN:" + position));
 		t.commit();
 		notifyDataSetChanged();
 	}
 
-	public void removeAllScreen() {	
+	public void removeAllScreen() {
 		FragmentTransaction t = mFragmentManager.beginTransaction();
 		for (int i = 0; i < screens.size(); i++) {
 			t.remove(mFragmentManager.findFragmentByTag("SCREEN:" + i));
@@ -104,14 +102,13 @@ public class ScreenPagerAdapter extends IstatPagerAdapter
 	}
 
 	public List<Fragment> getScreens() {
-		 List<Fragment> screens = new ArrayList<Fragment>();
-		 for(int i=0;i<this.screens.size();i++){
-			 screens.add(getScreenAtIndex(i));
-		 }
+		List<Fragment> screens = new ArrayList<Fragment>();
+		for (int i = 0; i < this.screens.size(); i++) {
+			screens.add(getScreenAtIndex(i));
+		}
 		return screens;
 	}
 
-	@Override
 	public int getIconResId(int index) {
 		// TODO Auto-generated method stub
 		if (getItem(index) instanceof ScreenPage)

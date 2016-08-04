@@ -14,11 +14,12 @@ public class PageTurner implements Runnable {
 	private ViewPager pager;
 	boolean run = true;
 
-	private PageTurner(PageTurner turner) {
+	private PageTurner(PageTurner turner, TurnCallBack callBack) {
 		this.pager = turner.pager;
 		turnDirection = turner.turnDirection;
 		configuration = turner.configuration;
 		pager = turner.pager;
+		this.turnCallBack = callBack;
 
 	}
 
@@ -52,7 +53,7 @@ public class PageTurner implements Runnable {
 		run = true;
 		timeCount = 0;
 		pager.beginFakeDrag();
-		handler.post(new PageTurner(this));
+		handler.post(new PageTurner(this, callback));
 		this.turnCallBack = callback;
 
 	}
