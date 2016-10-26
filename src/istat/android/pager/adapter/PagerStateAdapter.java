@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package istat.android.builder.pager.adapter;
+package istat.android.pager.adapter;
 
 import java.util.ArrayList;
 
@@ -71,7 +71,7 @@ import android.view.ViewGroup;
  * development/samples/Support13Demos/res/layout/fragment_pager_list.xml
  * complete}
  */
-abstract class IstatStatePagerAdapter extends PagerAdapter {
+public abstract class PagerStateAdapter extends PagerAdapter {
 	private static final String TAG = "FragmentStatePagerAdapter";
 	private static final boolean DEBUG = true;
 
@@ -82,7 +82,7 @@ abstract class IstatStatePagerAdapter extends PagerAdapter {
 	private ArrayList<Fragment> mFragments = new ArrayList<Fragment>();
 	private Fragment mCurrentPrimaryItem = null;
 
-	public IstatStatePagerAdapter(FragmentManager fm) {
+	public PagerStateAdapter(FragmentManager fm) {
 		mFragmentManager = fm;
 	}
 
@@ -171,8 +171,8 @@ abstract class IstatStatePagerAdapter extends PagerAdapter {
 	@Override
 	public void destroyItem(ViewGroup container, int position, Object object) {
 		Fragment fragment = (Fragment) object;
-		if (this instanceof LooperStatePagerAdapter
-				&& ((LooperStatePagerAdapter) this).getCount(true) < 4) {
+		if (this instanceof PagerLoopStateAdapter
+				&& ((PagerLoopStateAdapter) this).getCount(true) < 4) {
 			looperDestroyItem(container, position, fragment);
 		} else {
 			defaultDestroyItem(container, position, fragment);
@@ -182,7 +182,7 @@ abstract class IstatStatePagerAdapter extends PagerAdapter {
 	private void looperDestroyItem(ViewGroup container, int position,
 			Fragment fragment) {
 
-		LooperStatePagerAdapter adapter = ((LooperStatePagerAdapter) this);
+		PagerLoopStateAdapter adapter = ((PagerLoopStateAdapter) this);
 		if (mCurTransaction == null) {
 			mCurTransaction = mFragmentManager.beginTransaction();
 		}

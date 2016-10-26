@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package istat.android.builder.pager.adapter;
+package istat.android.pager.adapter;
 
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
@@ -37,7 +37,6 @@ import android.view.ViewGroup;
  * view hierarchy may be destroyed when not visible. This can result in using a
  * significant amount of memory since fragment instances can hold on to an
  * arbitrary amount of state. For larger sets of pages, consider
- * {@link FragmentStatePagerAdapter}.
  * 
  * <p>
  * When using FragmentPagerAdapter the host ViewPager must have a valid ID set.
@@ -68,7 +67,7 @@ import android.view.ViewGroup;
  * {@sample development/samples/Support4Demos/res/layout/fragment_pager_list.xml
  * complete}
  */
-public abstract class IstatPagerAdapter extends PagerAdapter {
+public abstract class BasePagerAdapter extends PagerAdapter {
 	private static final String TAG = "FragmentPagerAdapter";
 	private static final boolean DEBUG = true;
 
@@ -76,7 +75,7 @@ public abstract class IstatPagerAdapter extends PagerAdapter {
 	private FragmentTransaction mCurTransaction = null;
 	private Fragment mCurrentPrimaryItem = null;
 
-	public IstatPagerAdapter(FragmentManager fm) {
+	public BasePagerAdapter(FragmentManager fm) {
 		mFragmentManager = fm;
 	}
 
