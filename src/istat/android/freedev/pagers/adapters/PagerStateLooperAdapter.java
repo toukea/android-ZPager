@@ -1,25 +1,28 @@
-package istat.android.pagers.adapters;
-
-import istat.android.pagers.pages.Page;
+package istat.android.freedev.pagers.adapters;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import istat.android.freedev.pagers.pages.Page;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-public class PageSliderLooperAdapter extends PageSliderAdapter {
+public class PagerStateLooperAdapter extends PagerStateAdapter {
     List<Page> fakeItems = new ArrayList<Page>();
 
-    public PageSliderLooperAdapter(FragmentManager fm) {
+    public PagerStateLooperAdapter(FragmentManager fm) {
         super(fm);
+    }
 
+    public PagerStateLooperAdapter(FragmentManager fm, Fragment... fragments) {
+        super(fm, fragments);
     }
 
     @Override
     public int getCount() {
-        if (screens.size() <= 1)
-            return screens.size();
+        if (pages.size() <= 1)
+            return pages.size();
         return 1000;
 
     }
@@ -28,18 +31,19 @@ public class PageSliderLooperAdapter extends PageSliderAdapter {
         if (!real)
             return getCount();
         else
-            return screens.size();
+            return pages.size();
 
     }
 
     public int getFakeItemCount(boolean real) {
+
         return fakeItems.size();
 
     }
 
     @Override
     public Fragment getItem(int position) {
-		/*
+        /*
          * if(pages.size()<4){ int i=pages.size()-1;
 		 * while(pages.size()<4){ Page
 		 * fakePage=FakePage.newInstance(pages.get(i));
@@ -47,9 +51,8 @@ public class PageSliderLooperAdapter extends PageSliderAdapter {
 		 * //pages.add(FakePage.newInstance("fake")); i--; }
 		 * notifyDataSetChanged(); }
 		 */
-        if (position >= screens.size()) {
-
-            Fragment frag = getItem(position % screens.size());
+        if (position >= pages.size()) {
+            Fragment frag = getItem(position % pages.size());
             // Log.e("FRAG_getItem", ""+frag+" TAG:"+frag.getTag());
             return frag;
         }

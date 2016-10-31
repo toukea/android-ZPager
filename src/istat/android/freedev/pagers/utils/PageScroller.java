@@ -1,4 +1,4 @@
-package istat.android.pagers.utils;
+package istat.android.freedev.pagers.utils;
 
 /**
  * Created by istat on 27/10/16.

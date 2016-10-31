@@ -1,4 +1,4 @@
-package istat.android.pagers.pages;
+package istat.android.freedev.pagers.pages;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package istat.android.pagers.adapters;
+package istat.android.freedev.pagers.adapters.abs;
 
 import java.util.ArrayList;
 
@@ -28,6 +28,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import istat.android.freedev.pagers.adapters.PagerStateLooperAdapter;
+
 /**
  * Implementation of {@link android.support.v4.view.PagerAdapter} that uses a
  * {@link Fragment} to manage each page. This class also handles saving and
@@ -38,7 +40,7 @@ import android.view.ViewGroup;
  * pages, working more like a list view. When pages are not visible to the user,
  * their entire fragment may be destroyed, only keeping the saved state of that
  * fragment. This allows the pager to hold on to much less memory associated
- * with each visited page as compared to {@link BasePagerAdapter} at the
+ * with each visited page as compared to {@link AbsPagerAdapter} at the
  * cost of potentially more overhead when switching between pages.
  * <p>
  * <p>
@@ -71,8 +73,7 @@ import android.view.ViewGroup;
  * development/samples/Support13Demos/res/layout/fragment_pager_list.xml
  * complete}
  */
-public abstract class BasePagerStateAdapter extends PagerAdapter {
-    private static final String TAG = "FragmentStatePagerAdapter";
+public abstract class AbsPagerStateAdapter extends PagerAdapter {
     private static final boolean DEBUG = true;
 
     private final FragmentManager mFragmentManager;
@@ -82,7 +83,7 @@ public abstract class BasePagerStateAdapter extends PagerAdapter {
     private ArrayList<Fragment> mFragments = new ArrayList<Fragment>();
     private Fragment mCurrentPrimaryItem = null;
 
-    public BasePagerStateAdapter(FragmentManager fm) {
+    public AbsPagerStateAdapter(FragmentManager fm) {
         mFragmentManager = fm;
     }
 
@@ -171,8 +172,8 @@ public abstract class BasePagerStateAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         Fragment fragment = (Fragment) object;
-        if (this instanceof PageStateLooperAdapter
-                && ((PageStateLooperAdapter) this).getCount(true) < 4) {
+        if (this instanceof PagerStateLooperAdapter
+                && ((PagerStateLooperAdapter) this).getCount(true) < 4) {
             looperDestroyItem(container, position, fragment);
         } else {
             defaultDestroyItem(container, position, fragment);
@@ -182,7 +183,7 @@ public abstract class BasePagerStateAdapter extends PagerAdapter {
     private void looperDestroyItem(ViewGroup container, int position,
                                    Fragment fragment) {
 
-        PageStateLooperAdapter adapter = ((PageStateLooperAdapter) this);
+        PagerStateLooperAdapter adapter = ((PagerStateLooperAdapter) this);
         if (mCurTransaction == null) {
             mCurTransaction = mFragmentManager.beginTransaction();
         }
@@ -307,8 +308,12 @@ public abstract class BasePagerStateAdapter extends PagerAdapter {
             }
         }
     }
+
+    public FragmentManager getFragmentManager() {
+        return mFragmentManager;
+    }
     /*
-	 * private boolean isOnFManager(Fragment fragment) { return
+     * private boolean isOnFManager(Fragment fragment) { return
 	 * (mFragmentManager.findFragmentByTag(fragment.getTag()) != null); }
 	 */
 }
