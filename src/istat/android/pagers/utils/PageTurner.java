@@ -1,4 +1,4 @@
-package istat.android.pager.utils;
+package istat.android.pagers.utils;
 
 import android.os.Handler;
 import android.support.v4.view.ViewPager;

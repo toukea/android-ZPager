@@ -1,7 +1,6 @@
-package istat.android.pager.page;
+package istat.android.pagers.pages;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-public abstract class ScreenPage extends Fragment {
+public class Page extends Fragment {
     protected String title = "";
     protected int icon = 0;
     protected Bundle savedInstanceState;
@@ -24,7 +23,7 @@ public abstract class ScreenPage extends Fragment {
 
     @Nullable
     @Override
-    public  View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (rootView != null) {
             return rootView;
         } else {
@@ -46,11 +45,11 @@ public abstract class ScreenPage extends Fragment {
         return getLayoutInflater(getArguments());
     }
 
-    public final String getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    public final int getIcon() {
+    public int getIcon() {
         return icon;
     }
 

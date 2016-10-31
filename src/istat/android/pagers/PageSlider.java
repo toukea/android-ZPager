@@ -1,8 +1,9 @@
-package istat.android.pager.utils;
+package istat.android.pagers;
 
-import istat.android.pager.adapter.PagerLoopAdapter;
-import istat.android.pager.adapter.PagerLoopStateAdapter;
-import istat.android.pager.utils.PageTurner.TurnConfiguration;
+import istat.android.pagers.adapters.PageSliderLooperAdapter;
+import istat.android.pagers.adapters.PageStateLooperAdapter;
+import istat.android.pagers.utils.PageTurner;
+import istat.android.pagers.utils.PageTurner.TurnConfiguration;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -29,8 +30,8 @@ public class PageSlider extends ViewPager {
 	@Override
 	public void setAdapter(PagerAdapter adapter) {
 		super.setAdapter(adapter);
-		if (adapter instanceof PagerLoopAdapter) {
-			PagerLoopAdapter tmpAdapter = (PagerLoopAdapter) adapter;
+		if (adapter instanceof PageSliderLooperAdapter) {
+			PageSliderLooperAdapter tmpAdapter = (PageSliderLooperAdapter) adapter;
 			if (tmpAdapter.getCount(true) <= 1)
 				return;
 			if (tmpAdapter.getCount(true) % 2 == 0)
@@ -38,8 +39,8 @@ public class PageSlider extends ViewPager {
 			else
 				this.setCurrentItem(501);
 		}
-		if (adapter instanceof PagerLoopStateAdapter) {
-			PagerLoopStateAdapter tmpAdapter = (PagerLoopStateAdapter) adapter;
+		if (adapter instanceof PageStateLooperAdapter) {
+			PageStateLooperAdapter tmpAdapter = (PageStateLooperAdapter) adapter;
 			if (tmpAdapter.getCount(true) <= 1)
 				return;
 			if (tmpAdapter.getCount(true) % 2 == 0)
