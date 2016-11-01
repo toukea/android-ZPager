@@ -31,7 +31,6 @@ public class PageLoopSlider extends PageSlider implements SlideAble {
     }
 
 
-
     @Override
     public int getCurrentItem() {
         return super.getCurrentItem();
@@ -77,16 +76,19 @@ public class PageLoopSlider extends PageSlider implements SlideAble {
         return slider;
     }
 
-    PagerLooperAdapter mSlideAdapter;
     Slider slider;
 
     public void startSliding(FragmentManager fm, Fragment... fragments) {
-        mSlideAdapter = new PagerLooperAdapter(fm, fragments);
-        this.setAdapter(mSlideAdapter);
+        if (fragments.length >= 4) {
+            PagerLooperAdapter mSlideAdapter = new PagerLooperAdapter(fm, fragments);
+            this.setAdapter(mSlideAdapter);
+        } else {
+            this.setAdapterInternally(new istat.android.freedev.pagers.adapters.PagerAdapter(fm, fragments));
+        }
     }
 
     public final void startSliding(FragmentManager fm) {
-        mSlideAdapter = new PagerLooperAdapter(fm);
+        PagerLooperAdapter mSlideAdapter = new PagerLooperAdapter(fm);
         this.setAdapter(mSlideAdapter);
     }
 

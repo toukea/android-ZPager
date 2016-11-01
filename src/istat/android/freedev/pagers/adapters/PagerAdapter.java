@@ -53,8 +53,7 @@ public class PagerAdapter extends AbsPagerAdapter
             t.remove(getFragmentManager().findFragmentByTag(TAG_PAGE_PREFIX + i));
         }
         t.commit();
-        pages = new ArrayList<Fragment>();
-
+        pages.clear();
     }
 
     public PagerAdapter(FragmentManager fm) {
@@ -75,10 +74,16 @@ public class PagerAdapter extends AbsPagerAdapter
         return "";
     }
 
+    protected int lastRequestedPosition = 0;
+
+    public int getLastRequestedPosition() {
+        return lastRequestedPosition;
+    }
+
     @Override
     public Fragment getItem(int position) {
-        return getPageAtIndex(position);// pages.get(position);
-
+        lastRequestedPosition = position;
+        return pages.get(position);// pages.get(position);
     }
 
     @Override
@@ -88,12 +93,19 @@ public class PagerAdapter extends AbsPagerAdapter
         return pages.size();
     }
 
+    //    public List<Fragment> getPages() {
+//        List<Fragment> screens = new ArrayList<Fragment>();
+//        for (int i = 0; i < this.pages.size(); i++) {
+//            screens.add(getPageAtIndex(i));
+//        }
+//        return screens;
+//    }
     public List<Fragment> getPages() {
-        List<Fragment> screens = new ArrayList<Fragment>();
+        List<Fragment> pages = new ArrayList<Fragment>();
         for (int i = 0; i < this.pages.size(); i++) {
-            screens.add(getPageAtIndex(i));
+            pages.add(getItem(i));
         }
-        return screens;
+        return pages;
     }
 
     public int getIconResId(int index) {
@@ -103,18 +115,18 @@ public class PagerAdapter extends AbsPagerAdapter
             return 0;
     }
 
-    public Fragment getPageAtIndex(int index) {
-        if (pages.size() <= index)
-            return getFragmentManager().findFragmentByTag(TAG_PAGE_PREFIX + index);
-        Fragment page = pages.get(index);
-        if (page.getTag() == null) {
-            Fragment tmpPage = getFragmentManager().findFragmentByTag(TAG_PAGE_PREFIX
-                    + index);
-            if (tmpPage != null)
-                return tmpPage;
-        }
-        return page;
-    }
+//    public Fragment getPageAtIndex(int index) {
+//        if (pages.size() <= index)
+//            return getFragmentManager().findFragmentByTag(TAG_PAGE_PREFIX + index);
+//        Fragment page = pages.get(index);
+//        if (page.getTag() == null) {
+//            Fragment tmpPage = getFragmentManager().findFragmentByTag(TAG_PAGE_PREFIX
+//                    + index);
+//            if (tmpPage != null)
+//                return tmpPage;
+//        }
+//        return page;
+//    }
 
     public void fixPageCount(int fixedCount) {
         this.fixedCount = fixedCount;

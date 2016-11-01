@@ -36,7 +36,7 @@ public class PageSlider extends ViewPager {
 
     }
 
-    public void setAdapter(int initPosition, PagerAdapter adapter) {
+    public final void setAdapter(int initPosition, PagerAdapter adapter) {
         try {
             Field field = ViewPager.class.getDeclaredField("mCurItem");
             field.setAccessible(true);
@@ -45,21 +45,21 @@ public class PageSlider extends ViewPager {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        super.setAdapter(adapter);
+        this.setAdapter(adapter);
     }
 
     @Override
     public void setAdapter(PagerAdapter adapter) {
         super.setAdapter(adapter);
-        if (adapter instanceof PagerLooperAdapter) {
-            PagerLooperAdapter tmpAdapter = (PagerLooperAdapter) adapter;
-            if (tmpAdapter.getCount(true) <= 1)
-                return;
-            if (tmpAdapter.getCount(true) % 2 == 0)
-                this.setCurrentItem(500);
-            else
-                this.setCurrentItem(501);
-        }
+//        if (adapter instanceof PagerLooperAdapter) {
+//            PagerLooperAdapter tmpAdapter = (PagerLooperAdapter) adapter;
+//            if (tmpAdapter.getCount(true) <= 1)
+//                return;
+//            if (tmpAdapter.getCount(true) % 2 == 0)
+//                this.setCurrentItem(500);
+//            else
+//                this.setCurrentItem(501);
+//        }
         if (adapter instanceof PagerStateLooperAdapter) {
             PagerStateLooperAdapter tmpAdapter = (PagerStateLooperAdapter) adapter;
             if (tmpAdapter.getCount(true) <= 1)
@@ -91,7 +91,6 @@ public class PageSlider extends ViewPager {
         mTurner.turnPageRight();
     }
 
-    //int initialVelocity = 1, acceleration = 2, refreshTime = 50;
     public final void setPageTurnerConfiguration(int initialVelocity, int acceleration, int refreshTime) {
         PageTurner.TurnConfiguration config = new PageTurner.TurnConfiguration(initialVelocity, acceleration, refreshTime);
         setPageTurnerConfiguration(config);
