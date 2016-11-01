@@ -7,7 +7,7 @@ package istat.android.freedev.pagers.utils;
 import android.os.Handler;
 import android.widget.ScrollView;
 
-public class PageScroller implements Runnable {
+public final  class PageScroller implements Runnable {
     public static int DIRECTION_UP = -1, DIRECTION_DOWN = 1;
     int timeCount = 0;
     int turnDirection = -1;
