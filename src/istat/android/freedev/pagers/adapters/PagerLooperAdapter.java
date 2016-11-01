@@ -27,14 +27,6 @@ public class PagerLooperAdapter extends PagerAdapter {
 
     }
 
-    public int getCount(boolean real) {
-        if (!real)
-            return getCount();
-        else
-            return pages.size();
-
-    }
-
     public final int getSlidePageCount() {
         return pages.size();
     }
@@ -44,7 +36,7 @@ public class PagerLooperAdapter extends PagerAdapter {
     public final Fragment getItem(int position) {
         int loopPosition = position % pages.size();
         int lastRequestedPosition = getLastRequestedPosition();
-        int direction = position - lastRequestedPosition ;
+        int direction = position - lastRequestedPosition;
         direction = direction == 0 ? 0 : direction / Math.abs(direction);
         if (direction != lastDirection && lastDirection != 0) {
             onDirectionChanged(position, lastRequestedPosition, direction, lastDirection);
@@ -59,9 +51,6 @@ public class PagerLooperAdapter extends PagerAdapter {
                 t.commit();
             }
         } else if (direction < 0) {
-//            if (position > 0) {
-//                position = pages.size();
-//            }
             int indexToRemove = ((position + direction) % pages.size());
             if (indexToRemove < 0) {
                 indexToRemove = pages.size() - 1;

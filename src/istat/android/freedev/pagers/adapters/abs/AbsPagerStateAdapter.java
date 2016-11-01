@@ -173,7 +173,7 @@ public abstract class AbsPagerStateAdapter extends PagerAdapter {
     public void destroyItem(ViewGroup container, int position, Object object) {
         Fragment fragment = (Fragment) object;
         if (this instanceof PagerStateLooperAdapter
-                && ((PagerStateLooperAdapter) this).getCount(true) < 4) {
+                && ((PagerStateLooperAdapter) this).getSlidePageCount() < 4) {
             looperDestroyItem(container, position, fragment);
         } else {
             defaultDestroyItem(container, position, fragment);

@@ -40,17 +40,16 @@ public class PagerAdapter extends AbsPagerAdapter
 
     // ---------------------------------------------
     public void removePage(int position) {
-        pages.remove(position);
         FragmentTransaction t = getFragmentManager().beginTransaction();
-        t.remove(getFragmentManager().findFragmentByTag(TAG_PAGE_PREFIX + position));
+        t.remove(pages.get(position));
         t.commit();
-        notifyDataSetChanged();
+        pages.remove(position);
     }
 
     public void removeAllPage() {
         FragmentTransaction t = getFragmentManager().beginTransaction();
         for (int i = 0; i < pages.size(); i++) {
-            t.remove(getFragmentManager().findFragmentByTag(TAG_PAGE_PREFIX + i));
+            t.remove(pages.get(i));
         }
         t.commit();
         pages.clear();

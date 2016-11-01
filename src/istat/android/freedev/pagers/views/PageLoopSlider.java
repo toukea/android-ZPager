@@ -8,6 +8,7 @@ import android.support.v4.view.PagerAdapter;
 import android.util.AttributeSet;
 
 import istat.android.freedev.pagers.adapters.PagerLooperAdapter;
+import istat.android.freedev.pagers.adapters.PagerStateLooperAdapter;
 import istat.android.freedev.pagers.interfaces.SlideAble;
 
 /**
@@ -36,7 +37,11 @@ public class PageLoopSlider extends PageSlider implements SlideAble {
         return super.getCurrentItem();
     }
 
-    public final void setAdapter(PagerLooperAdapter adapter) {
+    public void setAdapter(PagerLooperAdapter adapter) {
+        super.setAdapter(adapter);
+    }
+
+    public void setAdapter(PagerStateLooperAdapter adapter) {
         super.setAdapter(adapter);
     }
 
@@ -78,9 +83,15 @@ public class PageLoopSlider extends PageSlider implements SlideAble {
 
     Slider slider;
 
+    public final void startSliding(int initialPosition, FragmentManager fm, Fragment... fragments) {
+        startSliding(fm, fragments);
+        setCurrentItemInternally(initialPosition);
+    }
+
     public void startSliding(FragmentManager fm, Fragment... fragments) {
         if (fragments.length >= 4) {
-            PagerLooperAdapter mSlideAdapter = new PagerLooperAdapter(fm, fragments);
+            // PagerLooperAdapter mSlideAdapter = new PagerLooperAdapter(fm, fragments);
+            PagerStateLooperAdapter mSlideAdapter = new PagerStateLooperAdapter(fm, fragments);
             this.setAdapter(mSlideAdapter);
         } else {
             this.setAdapterInternally(new istat.android.freedev.pagers.adapters.PagerAdapter(fm, fragments));
@@ -100,6 +111,34 @@ public class PageLoopSlider extends PageSlider implements SlideAble {
     @Override
     public void stopSliding() {
 
+    }
+
+    @Override
+    public final PageInflater getFragmentPageInflater(FragmentManager fm) {
+        return new PageInflater(fm) {
+            @Override
+            public PagerAdapter onApply(FragmentManager fm) {
+                PagerLooperAdapter adapter = new PagerLooperAdapter(fm);
+                for (Fragment page : pages) {
+                    adapter.addPage(page);
+                }
+                return adapter;
+            }
+        };
+    }
+
+    @Override
+    public final PageInflater getFragmentStatePageInflater(FragmentManager fm) {
+        return new PageInflater(fm) {
+            @Override
+            public PagerAdapter onApply(FragmentManager fm) {
+                PagerStateLooperAdapter adapter = new PagerStateLooperAdapter(fm);
+                for (Fragment page : pages) {
+                    adapter.addPage(page);
+                }
+                return adapter;
+            }
+        };
     }
 
 
