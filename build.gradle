@@ -3,17 +3,30 @@ apply plugin: 'com.android.library'
 //    PUBLISH_GROUP_ID = 'istat.android.network.http'
 //    PUBLISH_ARTIFACT_ID = 'istat-network'
 //    PUBLISH_VERSION = '2.4.0'
-//}apply from: 'file:///home/istat/Scripts/gradle/android-release-jar.gradle.txt'
+//}onApply from: 'file:///home/istat/Scripts/gradle/android-release-jar.gradle.txt'
 
 dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    // compile project(':Cinetcore:pharma_ci:istatBase')
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    testCompile 'junit:junit:4.12'
 }
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    buildToolsVersion "24.0.2"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+//
+//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
 
     sourceSets {
         main {
