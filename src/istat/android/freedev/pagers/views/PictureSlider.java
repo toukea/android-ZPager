@@ -33,6 +33,7 @@ public class PictureSlider extends LoopPageSlider {
     }
 
     @Override
+    @Deprecated
     public final void setAdapter(PagerLooperAdapter adapter) {
         throw new RuntimeException("Sorry, you can't specify and custom adapter for a SlideView. it has alrady named as PagerStateLooperAdapter");
     }
@@ -109,6 +110,16 @@ public class PictureSlider extends LoopPageSlider {
     public final <T> T optPath(int index) {
         Object obj = getPath(index);
         return obj == null ? null : (T) obj;
+    }
+
+    @Override
+    public SlideInflater getPageStateInflater(FragmentManager fm) {
+        return null;//super.getPageStateInflater(fm);
+    }
+
+    @Override
+    public SlideInflater getPageInflater(FragmentManager fm) {
+        return null;// super.getPageInflater(fm);
     }
 
     final class SlideInflater extends PageInflater {

@@ -11,7 +11,7 @@ import istat.android.freedev.pagers.views.LoopPageSlider;
  * Created by istat on 25/10/16.
  */
 
-public class SlideFragment extends Fragment implements SlideAble {
+public class SlideFragment extends Fragment {
     LoopPageSlider slideView;
 
     public LoopPageSlider getSlideView() {
@@ -25,29 +25,5 @@ public class SlideFragment extends Fragment implements SlideAble {
     public final void startSliding(Fragment... fragments) {
         slideView.startSliding(getFragmentManager(), fragments);
     }
-
-    @Override
-    public void startSliding(FragmentManager fm, int slideIndex) {
-        slideView.startSliding(fm, slideIndex);
-    }
-
-    public void startSliding() {
-        startSliding(0);
-    }
-
-    public void startSliding(int index) {
-        startSliding(getFragmentManager(), index);
-    }
-
-    @Override
-    public void stopSliding() {
-        slideView.stopSliding();
-    }
-
-    @Override
-    public int getCurrentItem() {
-        return slideView.getCurrentItem();
-    }
-
 
 }

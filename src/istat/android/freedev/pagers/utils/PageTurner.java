@@ -10,8 +10,8 @@ public final class PageTurner implements Runnable {
 
     double xPosition = 0;
     TurnConfiguration configuration = new TurnConfiguration();
-    private Handler handler = new Handler();
-    private ViewPager pager;
+    Handler handler = new Handler();
+    ViewPager pager;
     boolean run = true;
     PageTurner parentTurner;
 
@@ -157,7 +157,9 @@ public final class PageTurner implements Runnable {
     }
 
     public final void cancel() {
-        handler.removeCallbacksAndMessages(null);
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
         if (parentTurner != null) {
             parentTurner.handler.removeCallbacksAndMessages(null);
         }

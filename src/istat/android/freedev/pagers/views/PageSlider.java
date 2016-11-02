@@ -182,6 +182,10 @@ public class PageSlider extends ViewPager {
         };
     }
 
+    public PageTurner getPageTurner() {
+        return mTurner;
+    }
+
     public abstract class PageInflater {
         FragmentManager fragmentManager;
         private final List<Fragment> pages = new ArrayList<>();
@@ -203,4 +207,5 @@ public class PageSlider extends ViewPager {
 
         protected abstract PagerAdapter onApply(FragmentManager fm, List<Fragment> pages);
     }
+
 }
