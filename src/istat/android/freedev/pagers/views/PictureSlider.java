@@ -2,7 +2,6 @@ package istat.android.freedev.pagers.views;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -22,7 +21,7 @@ import istat.android.freedev.pagers.pages.PicturePage;
  * Created by istat on 29/10/16.
  */
 
-public class PictureSlider extends PageLoopSlider {
+public class PictureSlider extends LoopPageSlider {
     public final static int MIN_LENGTH_SUPPORTED = 3;
 
     public PictureSlider(Context context, AttributeSet attrs) {

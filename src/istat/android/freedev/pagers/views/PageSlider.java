@@ -156,7 +156,7 @@ public class PageSlider extends ViewPager {
         mTurner.setTurnerConfiguration(config);
     }
 
-    public PageInflater getFragmentPageInflater(FragmentManager fm) {
+    public PageInflater getPageInflater(FragmentManager fm) {
         return new PageInflater(fm) {
             @Override
             public PagerAdapter onApply(FragmentManager fm, List<Fragment> pages) {
@@ -169,7 +169,7 @@ public class PageSlider extends ViewPager {
         };
     }
 
-    public PageInflater getFragmentStatePageInflater(FragmentManager fm) {
+    public PageInflater getPageStateInflater(FragmentManager fm) {
         return new PageInflater(fm) {
             @Override
             public PagerAdapter onApply(FragmentManager fm, List<Fragment> pages) {

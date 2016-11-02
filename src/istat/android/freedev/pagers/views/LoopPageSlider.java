@@ -18,14 +18,14 @@ import istat.android.freedev.pagers.interfaces.SlideAble;
  * Created by istat on 26/10/16.
  */
 
-public class PageLoopSlider extends PageSlider implements SlideAble {
+public class LoopPageSlider extends PageSlider implements SlideAble {
     private FragmentManager fragmentManager;
 
-    public PageLoopSlider(Context context, AttributeSet attrs) {
+    public LoopPageSlider(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public PageLoopSlider(Context context) {
+    public LoopPageSlider(Context context) {
         super(context);
     }
 
@@ -83,7 +83,7 @@ public class PageLoopSlider extends PageSlider implements SlideAble {
     }
 
     @Override
-    public final PageInflater getFragmentPageInflater(FragmentManager fm) {
+    public final PageInflater getPageInflater(FragmentManager fm) {
         return new PageInflater(fm) {
             @Override
             public PagerAdapter onApply(FragmentManager fm, List<Fragment> pages) {
@@ -97,7 +97,7 @@ public class PageLoopSlider extends PageSlider implements SlideAble {
     }
 
     @Override
-    public final PageInflater getFragmentStatePageInflater(FragmentManager fm) {
+    public final PageInflater getPageStateInflater(FragmentManager fm) {
         return new PageInflater(fm) {
             @Override
             public PagerAdapter onApply(FragmentManager fm, List<Fragment> pages) {
