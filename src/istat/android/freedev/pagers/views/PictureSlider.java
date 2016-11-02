@@ -2,13 +2,19 @@ package istat.android.freedev.pagers.views;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.util.AttributeSet;
 
+import java.util.List;
+
 import istat.android.freedev.pagers.adapters.PagerLooperAdapter;
 import istat.android.freedev.pagers.adapters.PagerStateLooperAdapter;
+import istat.android.freedev.pagers.adapters.abs.AbsPagerStateAdapter;
 import istat.android.freedev.pagers.pages.PicturePage;
 
 
@@ -82,12 +88,83 @@ public class PictureSlider extends PageLoopSlider {
     }
 
     public final Object getPath(int index) {
-        return getAdapter().getItemPosition(index);
+        Fragment page = null;
+        if (getAdapter() instanceof FragmentPagerAdapter) {
+            page = ((FragmentPagerAdapter) getAdapter()).getItem(index);
+        }
+        if (getAdapter() instanceof FragmentStatePagerAdapter) {
+            page = ((FragmentStatePagerAdapter) getAdapter()).getItem(index);
+        }
+        if (getAdapter() instanceof AbsPagerStateAdapter) {
+            page = ((AbsPagerStateAdapter) getAdapter()).getItem(index);
+        }
+        if (page == null) {
+            return null;
+        }
+        if (page instanceof PicturePage) {
+            return ((PicturePage) page).getPath();
+        }
+        return null;
     }
 
     public final <T> T optPath(int index) {
-        return (T) getPath(index);
+        Object obj = getPath(index);
+        return obj == null ? null : (T) obj;
     }
 
+    final class SlideInflater extends PageInflater {
+        SlideInflater(FragmentManager fragmentManager) {
+            super(fragmentManager);
+        }
+
+        public SlideInflater addSlideRessource(int ressource) {
+            return this;
+        }
+
+        public SlideInflater addSlideDrawable(Drawable drawable) {
+
+            return this;
+        }
+
+//        public SlideInflater addSlideUri(Uri... uris) {
+//            for (Uri uri : uris) {
+//                slidePath.add(uri.getPath());
+//            }
+//            return this;
+//        }
+//
+//        public SlideInflater addSlidePath(String... url_or_paths) {
+//            for (String path : url_or_paths) {
+//                path = path.startsWith("/") ? path : "/" + path;
+//                slidePath.add("file://" + path);
+//            }
+//            return this;
+//        }
+
+        @Override
+        protected PagerAdapter onApply(FragmentManager fm, List<Fragment> pages) {
+            return null;
+        }
+
+//        public void start() {
+//            slideAble.startSliding(this.fragmentManager, slideAble.getCurrentItem());
+//        }
+//
+//        public void stop() {
+//            slideAble.stopSliding();
+//        }
+//
+//        public void slideTo(int index) {
+//            slideAble.startSliding(this.fragmentManager, index);
+//        }
+//
+//        void begin() {
+//
+//        }
+//
+//        void end() {
+//
+//        }
+    }
 
 }

@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentManager;
 
 import istat.android.freedev.pagers.interfaces.SlideAble;
 import istat.android.freedev.pagers.views.PageLoopSlider;
-import istat.android.freedev.pagers.views.Slider;
 
 /**
  * Created by istat on 25/10/16.
@@ -50,7 +49,5 @@ public class SlideFragment extends Fragment implements SlideAble {
         return slideView.getCurrentItem();
     }
 
-    public Slider getSlider() {
-        return slideView.getSlider(getFragmentManager());
-    }
+
 }

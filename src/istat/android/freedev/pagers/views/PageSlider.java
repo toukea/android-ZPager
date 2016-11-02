@@ -159,7 +159,7 @@ public class PageSlider extends ViewPager {
     public PageInflater getFragmentPageInflater(FragmentManager fm) {
         return new PageInflater(fm) {
             @Override
-            public PagerAdapter onApply(FragmentManager fm) {
+            public PagerAdapter onApply(FragmentManager fm, List<Fragment> pages) {
                 istat.android.freedev.pagers.adapters.PagerAdapter adapter = new istat.android.freedev.pagers.adapters.PagerAdapter(fm);
                 for (Fragment page : pages) {
                     adapter.addPage(page);
@@ -172,7 +172,7 @@ public class PageSlider extends ViewPager {
     public PageInflater getFragmentStatePageInflater(FragmentManager fm) {
         return new PageInflater(fm) {
             @Override
-            public PagerAdapter onApply(FragmentManager fm) {
+            public PagerAdapter onApply(FragmentManager fm, List<Fragment> pages) {
                 istat.android.freedev.pagers.adapters.PagerStateAdapter adapter = new istat.android.freedev.pagers.adapters.PagerStateAdapter(fm);
                 for (Fragment page : pages) {
                     adapter.addPage(page);
@@ -184,7 +184,7 @@ public class PageSlider extends ViewPager {
 
     public abstract class PageInflater {
         FragmentManager fragmentManager;
-        final List<Fragment> pages = new ArrayList<>();
+        private final List<Fragment> pages = new ArrayList<>();
 
         PageInflater(FragmentManager fragmentManager) {
             this.fragmentManager = fragmentManager;
@@ -198,9 +198,9 @@ public class PageSlider extends ViewPager {
         }
 
         public final PagerAdapter apply() {
-            return onApply(fragmentManager);
+            return onApply(fragmentManager, pages);
         }
 
-        protected abstract PagerAdapter onApply(FragmentManager fm);
+        protected abstract PagerAdapter onApply(FragmentManager fm, List<Fragment> pages);
     }
 }

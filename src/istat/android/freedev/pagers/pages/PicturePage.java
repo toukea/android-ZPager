@@ -1,6 +1,7 @@
 package istat.android.freedev.pagers.pages;
 
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -8,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import java.io.File;
 
 /**
  * Created by istat on 26/10/16.
@@ -59,10 +62,14 @@ public class PicturePage extends Page {
             imageView.setImageResource(Integer.valueOf(path + ""));
         } else if (path instanceof Drawable) {
             imageView.setImageDrawable((Drawable) path);
-        } else if (path instanceof String) {
-            getImageLoader().onLoadImage(imageView, String.valueOf(path));
-        } else {
-
+        } else if (getImageLoader() != null) {
+            if (path instanceof String) {
+                getImageLoader().onLoadImage(imageView, String.valueOf(path));
+            } else if (path instanceof Uri) {
+                getImageLoader().onLoadImage(imageView, ((Uri) path).getPath());
+            } else if (path instanceof File) {
+                getImageLoader().onLoadImage(imageView, ((File) path).getAbsolutePath());
+            }
         }
         return imageView;
     }

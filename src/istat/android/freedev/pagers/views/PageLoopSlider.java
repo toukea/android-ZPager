@@ -1,11 +1,14 @@
 package istat.android.freedev.pagers.views;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.util.AttributeSet;
+
+import java.util.List;
 
 import istat.android.freedev.pagers.adapters.PagerLooperAdapter;
 import istat.android.freedev.pagers.adapters.PagerStateLooperAdapter;
@@ -45,43 +48,9 @@ public class PageLoopSlider extends PageSlider implements SlideAble {
         super.setAdapter(adapter);
     }
 
-    @Override
-    protected void onPrepare(Context context) {
-        super.onPrepare(context);
-        if (context instanceof FragmentActivity) {
-            FragmentActivity activity = (FragmentActivity) context;
-            setFragmentManager((activity.getSupportFragmentManager()));
-        }
-
-    }
-
     public FragmentManager getFragmentManager() {
         return fragmentManager;
     }
-
-    public void setFragmentManager(FragmentManager fragmentManager) {
-        this.fragmentManager = fragmentManager;
-
-    }
-
-    public final Slider getSlider(FragmentManager fm) {
-        if (slider != null && slider.fragmentManager != fm) {
-            return slider;
-        } else {
-            return new Slider(fm, this);
-        }
-    }
-
-    public final Slider newSlider(FragmentManager fm) {
-        slider = new Slider(fm, this);
-        return slider;
-    }
-
-    public Slider optSlider() {
-        return slider;
-    }
-
-    Slider slider;
 
     public final void startSliding(int initialPosition, FragmentManager fm, Fragment... fragments) {
         startSliding(fm, fragments);
@@ -117,7 +86,7 @@ public class PageLoopSlider extends PageSlider implements SlideAble {
     public final PageInflater getFragmentPageInflater(FragmentManager fm) {
         return new PageInflater(fm) {
             @Override
-            public PagerAdapter onApply(FragmentManager fm) {
+            public PagerAdapter onApply(FragmentManager fm, List<Fragment> pages) {
                 PagerLooperAdapter adapter = new PagerLooperAdapter(fm);
                 for (Fragment page : pages) {
                     adapter.addPage(page);
@@ -131,7 +100,7 @@ public class PageLoopSlider extends PageSlider implements SlideAble {
     public final PageInflater getFragmentStatePageInflater(FragmentManager fm) {
         return new PageInflater(fm) {
             @Override
-            public PagerAdapter onApply(FragmentManager fm) {
+            public PagerAdapter onApply(FragmentManager fm, List<Fragment> pages) {
                 PagerStateLooperAdapter adapter = new PagerStateLooperAdapter(fm);
                 for (Fragment page : pages) {
                     adapter.addPage(page);
@@ -140,7 +109,6 @@ public class PageLoopSlider extends PageSlider implements SlideAble {
             }
         };
     }
-
 
 
 }
