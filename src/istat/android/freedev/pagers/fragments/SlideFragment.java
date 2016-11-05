@@ -23,7 +23,7 @@ public class SlideFragment extends Fragment {
     }
 
     public final void startSliding(Fragment... fragments) {
-        slideView.startSliding(getFragmentManager(), fragments);
+        //  slideView.startSliding(getFragmentManager(), fragments);
     }
 
 }

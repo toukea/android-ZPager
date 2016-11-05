@@ -2,25 +2,24 @@ package istat.android.freedev.pagers.utils;
 
 import android.support.v4.view.ViewPager;
 
-import istat.android.freedev.pagers.pages.Page;
 import istat.android.freedev.pagers.views.PageSlider;
 
 /**
  * Created by istat on 01/11/16.
  */
 
-public class PageLoopTurner implements PageTurner.TurnCallBack, ViewPager.OnPageChangeListener {
+public class PageAutoTurner implements PageTurner.TurnCallBack, ViewPager.OnPageChangeListener {
     public static int DIRECTION_LEFT = PageTurner.DIRECTION_LEFT, DIRECTION_RIGHT = PageTurner.DIRECTION_RIGHT;
-    int interval = 1000;
+    int interval;
     PageTurner mTurner;
 
-    public PageLoopTurner(int turnInterval, PageSlider slider) {
+    public PageAutoTurner(int turnInterval, PageSlider slider) {
         this.interval = turnInterval;
         this.mTurner = slider.getPageTurner();
         this.mTurner.pager.addOnPageChangeListener(this);
     }
 
-    public PageLoopTurner(int turnInterval, PageTurner turner) {
+    public PageAutoTurner(int turnInterval, PageTurner turner) {
         this.interval = turnInterval;
         this.mTurner = turner;
         this.mTurner.pager.addOnPageChangeListener(this);
@@ -38,9 +37,13 @@ public class PageLoopTurner implements PageTurner.TurnCallBack, ViewPager.OnPage
 
             @Override
             public void run() {
-                mTurner.turnPage(direction, PageLoopTurner.this);
+                mTurner.turnPage(direction, PageAutoTurner.this);
             }
         }, interval);
+    }
+
+    public int getDirection() {
+        return direction;
     }
 
     public void stop() {
@@ -72,5 +75,9 @@ public class PageLoopTurner implements PageTurner.TurnCallBack, ViewPager.OnPage
         if (ViewPager.SCROLL_STATE_IDLE == state) {
             start();
         }
+    }
+
+    public PageTurner getTurner() {
+        return mTurner;
     }
 }

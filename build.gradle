@@ -1,10 +1,11 @@
 apply plugin: 'com.android.library'
+//apply plugin: 'maven'
 //ext {
-//    PUBLISH_GROUP_ID = 'istat.android.network.http'
-//    PUBLISH_ARTIFACT_ID = 'istat-network'
-//    PUBLISH_VERSION = '2.4.0'
-//}onApply from: 'file:///home/istat/Scripts/gradle/android-release-jar.gradle.txt'
-
+//    PUBLISH_GROUP_ID = 'istat.android.freedev.pagers'
+//    PUBLISH_ARTIFACT_ID = 'istat-zpager'
+//    PUBLISH_VERSION = '1.2.0'
+//}
+// apply from: 'file:///home/istat/Scripts/gradle/android-release-jar.gradle.txt'
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {

@@ -52,12 +52,12 @@ public class LoopPageSlider extends PageSlider {
         return fragmentManager;
     }
 
-    public final void startSliding(int initialPosition, FragmentManager fm, Fragment... fragments) {
+    final void startSliding(int initialPosition, FragmentManager fm, Fragment... fragments) {
         startSliding(fm, fragments);
         setCurrentItemInternally(initialPosition);
     }
 
-    public void startSliding(FragmentManager fm, Fragment... fragments) {
+    void startSliding(FragmentManager fm, Fragment... fragments) {
         if (fragments.length >= 4) {
             // PagerLooperAdapter mSlideAdapter = new PagerLooperAdapter(fm, fragments);
             PagerStateLooperAdapter mSlideAdapter = new PagerStateLooperAdapter(fm, fragments);
@@ -67,7 +67,7 @@ public class LoopPageSlider extends PageSlider {
         }
     }
 
-    public final void startSliding(FragmentManager fm) {
+    final void startSliding(FragmentManager fm) {
         PagerLooperAdapter mSlideAdapter = new PagerLooperAdapter(fm);
         this.setAdapter(mSlideAdapter);
     }

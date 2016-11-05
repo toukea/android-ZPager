@@ -15,6 +15,7 @@ import istat.android.freedev.pagers.adapters.PagerLooperAdapter;
 import istat.android.freedev.pagers.adapters.PagerStateLooperAdapter;
 import istat.android.freedev.pagers.adapters.abs.AbsPagerStateAdapter;
 import istat.android.freedev.pagers.pages.PicturePage;
+import istat.android.freedev.pagers.utils.PageAutoTurner;
 
 
 /**
@@ -23,6 +24,8 @@ import istat.android.freedev.pagers.pages.PicturePage;
 
 public class PictureSlider extends LoopPageSlider {
     public final static int MIN_LENGTH_SUPPORTED = 3;
+    private static final int DEFAULT_SLIDE_INTERVAL = 1000;
+    int slideInterval = DEFAULT_SLIDE_INTERVAL;
 
     public PictureSlider(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -58,18 +61,27 @@ public class PictureSlider extends LoopPageSlider {
             }
         }
         this.startSliding(fm, PicturePage.newArrayInstances(tmpPaths));
+        start();
     }
 
     public final void startSlidingPath(FragmentManager fm, String... paths) {
-        startSliding(fm, paths);
+        startSliding(fm, (Object[]) paths);
     }
 
     public final void startSlidingDrawables(FragmentManager fm, Drawable... drawable) {
-        startSliding(fm, drawable);
+        startSliding(fm, (Object[]) drawable);
     }
 
     public final void startSlidingRessource(FragmentManager fm, int... ResourceId) {
         startSliding(fm, ResourceId);
+    }
+
+    public void setSlideInterval(int slideInterval) {
+        this.slideInterval = slideInterval;
+    }
+
+    public int getSlideInterval() {
+        return slideInterval;
     }
 
     @Override
@@ -80,6 +92,8 @@ public class PictureSlider extends LoopPageSlider {
         } else {
             this.setAdapterInternally(new istat.android.freedev.pagers.adapters.PagerAdapter(fm, fragments));
         }
+        PageAutoTurner turner = new PageAutoTurner(slideInterval, this);
+        turner.start();
     }
 
     @Override
@@ -176,5 +190,23 @@ public class PictureSlider extends LoopPageSlider {
 //
 //        }
     }
+
+    PageAutoTurner autoTurner;
+
+    void start() {
+        autoTurner = new PageAutoTurner(slideInterval, this);
+        autoTurner.start();
+    }
+
+    public void stop() {
+        autoTurner.stop();
+    }
+
+    public void restart() {
+        stop();
+        setCurrentItem(500);
+        start();
+    }
+
 
 }
