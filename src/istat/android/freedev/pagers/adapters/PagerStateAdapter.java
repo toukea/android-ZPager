@@ -21,9 +21,10 @@ public class PagerStateAdapter extends AbsPagerStateAdapter {
         pages.add(screen);
     }
 
-    public void addPage(Fragment[] screen) {
-        for (Fragment fragment : screen)
+    public void addPage(Fragment... screen) {
+        for (Fragment fragment : screen) {
             pages.add(fragment);
+        }
     }
 
     public void addPage(List<Fragment> screen) {

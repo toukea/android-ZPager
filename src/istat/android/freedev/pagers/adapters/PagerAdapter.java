@@ -60,7 +60,7 @@ public class PagerAdapter extends AbsPagerAdapter
     }
 
     public PagerAdapter(FragmentManager fm, Fragment... fragments) {
-        super(fm);
+        this(fm);
         for (Fragment fragment : fragments) {
             addPage(fragment);
         }

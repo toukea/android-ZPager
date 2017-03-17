@@ -19,7 +19,6 @@ import istat.android.freedev.pagers.interfaces.SlideAble;
  */
 
 public class LoopPageSlider extends PageSlider {
-    private FragmentManager fragmentManager;
 
     public LoopPageSlider(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -28,12 +27,6 @@ public class LoopPageSlider extends PageSlider {
     public LoopPageSlider(Context context) {
         super(context);
     }
-
-    @Override
-    public void setAdapter(PagerAdapter adapter) {
-        throw new RuntimeException("Sorry, you can't specify and custom adapter for a SlideView. it has alrady named as PagerLooperAdapter");
-    }
-
 
     @Override
     public int getCurrentItem() {
@@ -48,8 +41,9 @@ public class LoopPageSlider extends PageSlider {
         super.setAdapter(adapter);
     }
 
-    public FragmentManager getFragmentManager() {
-        return fragmentManager;
+    @Override
+    public void setAdapter(PagerAdapter adapter) {
+        throw new RuntimeException("Sorry, you can't specify and custom adapter for a SlideView. it has alrady named as PagerLooperAdapter");
     }
 
     final void startSliding(int initialPosition, FragmentManager fm, Fragment... fragments) {

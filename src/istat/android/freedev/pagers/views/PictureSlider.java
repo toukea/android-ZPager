@@ -42,10 +42,8 @@ public class PictureSlider extends LoopPageSlider {
     }
 
     public final void startSliding(int initialPosition, FragmentManager fm, Object... paths) {
-//        setCurrentItemInternally(initialPosition);
         startSliding(fm, paths);
         setCurrentItem(initialPosition, true);
-//        setCurrentItem(initialPosition);
     }
 
     public final void startSliding(FragmentManager fm, Object... paths) {
@@ -61,7 +59,6 @@ public class PictureSlider extends LoopPageSlider {
             }
         }
         this.startSliding(fm, PicturePage.newArrayInstances(tmpPaths));
-        start();
     }
 
     public final void startSlidingPath(FragmentManager fm, String... paths) {
@@ -96,6 +93,24 @@ public class PictureSlider extends LoopPageSlider {
         turner.start();
     }
 
+    PageAutoTurner autoTurner;
+
+    void start() {
+        autoTurner = new PageAutoTurner(slideInterval, this);
+        autoTurner.start();
+    }
+
+    public void stop() {
+        autoTurner.stop();
+    }
+
+    public void restart() {
+        stop();
+        setCurrentItem(500);
+        start();
+    }
+
+
     @Override
     void setAdapterInternally(PagerAdapter adapter) {
         super.setAdapter(adapter);
@@ -126,86 +141,79 @@ public class PictureSlider extends LoopPageSlider {
         return obj == null ? null : (T) obj;
     }
 
-    @Override
-    public SlideInflater getPageStateInflater(FragmentManager fm) {
-        return null;//super.getPageStateInflater(fm);
-    }
-
-    @Override
-    public SlideInflater getPageInflater(FragmentManager fm) {
-        return null;// super.getPageInflater(fm);
-    }
-
-    final class SlideInflater extends PageInflater {
-        SlideInflater(FragmentManager fragmentManager) {
-            super(fragmentManager);
-        }
-
-        public SlideInflater addSlideRessource(int ressource) {
-            return this;
-        }
-
-        public SlideInflater addSlideDrawable(Drawable drawable) {
-
-            return this;
-        }
-
-//        public SlideInflater addSlideUri(Uri... uris) {
-//            for (Uri uri : uris) {
-//                slidePath.add(uri.getPath());
-//            }
+//    @Override
+//    public SlideInflater getPageStateInflater(FragmentManager fm) {
+//        return null;//super.getPageStateInflater(fm);
+//    }
+//
+//    @Override
+//    public SlideInflater getPageInflater(FragmentManager fm) {
+//        return null;// super.getPageInflater(fm);
+//    }
+//
+//    final class SlideInflater extends PageInflater {
+//        SlideInflater(FragmentManager fragmentManager) {
+//            super(fragmentManager);
+//        }
+//
+//        public SlideInflater addSlideRessource(int ressource) {
 //            return this;
 //        }
 //
-//        public SlideInflater addSlidePath(String... url_or_paths) {
-//            for (String path : url_or_paths) {
-//                path = path.startsWith("/") ? path : "/" + path;
-//                slidePath.add("file://" + path);
-//            }
+//        public SlideInflater addSlideDrawable(Drawable drawable) {
+//
 //            return this;
 //        }
+//
+////        public SlideInflater addSlideUri(Uri... uris) {
+////            for (Uri uri : uris) {
+////                slidePath.add(uri.getPath());
+////            }
+////            return this;
+////        }
+////
+////        public SlideInflater addSlidePath(String... url_or_paths) {
+////            for (String path : url_or_paths) {
+////                path = path.startsWith("/") ? path : "/" + path;
+////                slidePath.add("file://" + path);
+////            }
+////            return this;
+////        }
+//
+//        @Override
+//        protected PagerAdapter onApply(FragmentManager fm, List<Fragment> pages) {
+//            return null;
+//        }
+//
+////        public void start() {
+////            slideAble.startSliding(this.fragmentManager, slideAble.getCurrentItem());
+////        }
+////
+////        public void stop() {
+////            slideAble.stopSliding();
+////        }
+////
+////        public void slideTo(int index) {
+////            slideAble.startSliding(this.fragmentManager, index);
+////        }
+////
+////        void begin() {
+////
+////        }
+////
+////        void end() {
+////
+////        }
+//    }
 
-        @Override
-        protected PagerAdapter onApply(FragmentManager fm, List<Fragment> pages) {
-            return null;
-        }
-
-//        public void start() {
-//            slideAble.startSliding(this.fragmentManager, slideAble.getCurrentItem());
-//        }
-//
-//        public void stop() {
-//            slideAble.stopSliding();
-//        }
-//
-//        public void slideTo(int index) {
-//            slideAble.startSliding(this.fragmentManager, index);
-//        }
-//
-//        void begin() {
-//
-//        }
-//
-//        void end() {
-//
-//        }
+    public void setOnPageClickListener(OnPageClickListener onPageClickListener) {
+        this.onPageClickListener = onPageClickListener;
     }
 
-    PageAutoTurner autoTurner;
+    OnPageClickListener onPageClickListener;
 
-    void start() {
-        autoTurner = new PageAutoTurner(slideInterval, this);
-        autoTurner.start();
-    }
+    public interface OnPageClickListener {
 
-    public void stop() {
-        autoTurner.stop();
-    }
-
-    public void restart() {
-        stop();
-        setCurrentItem(500);
-        start();
     }
 
 
