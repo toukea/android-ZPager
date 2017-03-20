@@ -42,28 +42,9 @@ public class LoopPageSlider extends PageSlider {
     }
 
     @Override
+    @Deprecated
     public void setAdapter(PagerAdapter adapter) {
         throw new RuntimeException("Sorry, you can't specify and custom adapter for a SlideView. it has alrady named as PagerLooperAdapter");
-    }
-
-    final void startSliding(int initialPosition, FragmentManager fm, Fragment... fragments) {
-        startSliding(fm, fragments);
-        setCurrentItemInternally(initialPosition);
-    }
-
-    void startSliding(FragmentManager fm, Fragment... fragments) {
-        if (fragments.length >= 4) {
-            // PagerLooperAdapter mSlideAdapter = new PagerLooperAdapter(fm, fragments);
-            PagerStateLooperAdapter mSlideAdapter = new PagerStateLooperAdapter(fm, fragments);
-            this.setAdapter(mSlideAdapter);
-        } else {
-            this.setAdapterInternally(new istat.android.freedev.pagers.adapters.PagerAdapter(fm, fragments));
-        }
-    }
-
-    final void startSliding(FragmentManager fm) {
-        PagerLooperAdapter mSlideAdapter = new PagerLooperAdapter(fm);
-        this.setAdapter(mSlideAdapter);
     }
 
     @Override

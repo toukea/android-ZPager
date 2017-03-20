@@ -53,6 +53,9 @@ public class PagerStateAdapter extends AbsPagerStateAdapter {
             addPage(fragment);
         }
     }
+    public PagerStateAdapter(FragmentManager fm, List<Fragment> fragments) {
+        this(fm, fragments.toArray(new Fragment[fragments.size()]));
+    }
 
 
     @Override

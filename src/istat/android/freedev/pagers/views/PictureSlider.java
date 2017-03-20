@@ -8,7 +8,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.util.AttributeSet;
+import android.view.View;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import istat.android.freedev.pagers.adapters.PagerLooperAdapter;
@@ -26,6 +29,8 @@ public class PictureSlider extends LoopPageSlider {
     public final static int MIN_LENGTH_SUPPORTED = 3;
     private static final int DEFAULT_SLIDE_INTERVAL = 1000;
     int slideInterval = DEFAULT_SLIDE_INTERVAL;
+    private final List<Fragment> fragmentList = new ArrayList<>();
+    FragmentManager fragmentManager;
 
     public PictureSlider(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -75,33 +80,79 @@ public class PictureSlider extends LoopPageSlider {
 
     public void setSlideInterval(int slideInterval) {
         this.slideInterval = slideInterval;
+        autoSlideEnable = slideInterval > 0;
     }
 
     public int getSlideInterval() {
         return slideInterval;
     }
 
-    @Override
-    public void startSliding(FragmentManager fm, Fragment... fragments) {
-        if (fragments.length >= MIN_LENGTH_SUPPORTED) {
-            PagerStateLooperAdapter mSlideAdapter = new PagerStateLooperAdapter(fm, fragments);
+    void startSliding(FragmentManager fm, Fragment... fragments) {
+        this.fragmentList.addAll(Arrays.asList(fragments));
+        startSliding(fm);
+    }
+
+    public PictureSlider addSlideContent(String path) {
+        fragmentList.add(PicturePage.newInstance(path));
+        return this;
+    }
+
+    public PictureSlider addSlideContent(Drawable drawable) {
+        fragmentList.add(PicturePage.newInstance(drawable));
+        return this;
+    }
+
+    public PictureSlider addSlideContent(int drawableResource) {
+        fragmentList.add(PicturePage.newInstance(drawableResource));
+        return this;
+    }
+
+    public void clear() {
+        fragmentList.clear();
+    }
+
+    private void initSlider(FragmentManager fm) {
+        fragmentManager = fm;
+        if (fragmentList.size() >= MIN_LENGTH_SUPPORTED) {
+            PagerStateLooperAdapter mSlideAdapter = new PagerStateLooperAdapter(fm, fragmentList);
             this.setAdapter(mSlideAdapter);
         } else {
-            this.setAdapterInternally(new istat.android.freedev.pagers.adapters.PagerAdapter(fm, fragments));
+            this.setAdapterInternally(new istat.android.freedev.pagers.adapters.PagerAdapter(fm, fragmentList));
         }
-        PageAutoTurner turner = new PageAutoTurner(slideInterval, this);
-        turner.start();
+    }
+
+    public void startSliding(FragmentManager fm) {
+        initSlider(fm);
+        start();
     }
 
     PageAutoTurner autoTurner;
+    boolean autoSlideEnable = true;
 
     void start() {
+        start(autoSlideEnable);
+    }
+
+    void start(boolean autoTurnEnable) {
+        if (autoTurner == null && autoTurner.isRunning()) {
+            autoTurner.stop();
+        }
         autoTurner = new PageAutoTurner(slideInterval, this);
+        autoTurner.enableAutoTurn(autoTurnEnable);
         autoTurner.start();
     }
 
+    public void setAutoMotionEnable(boolean state) {
+        if (autoTurner != null) {
+            stop();
+            start(state);
+        }
+    }
+
     public void stop() {
-        autoTurner.stop();
+        if (autoTurner != null) {
+            autoTurner.stop();
+        }
     }
 
     public void restart() {
@@ -116,7 +167,7 @@ public class PictureSlider extends LoopPageSlider {
         super.setAdapter(adapter);
     }
 
-    public final Object getPath(int index) {
+    public final PicturePage getPage(int index) {
         Fragment page = null;
         if (getAdapter() instanceof FragmentPagerAdapter) {
             page = ((FragmentPagerAdapter) getAdapter()).getItem(index);
@@ -131,88 +182,42 @@ public class PictureSlider extends LoopPageSlider {
             return null;
         }
         if (page instanceof PicturePage) {
-            return ((PicturePage) page).getPath();
+            return (PicturePage) page;
         }
         return null;
     }
 
-    public final <T> T optPath(int index) {
+    public final Object getPath(int index) {
+        PicturePage page = getPage(index);
+        if (page != null) {
+            return page.getPath();
+        }
+        return null;
+    }
+
+    public final <T> T optPageContent(int index) {
         Object obj = getPath(index);
         return obj == null ? null : (T) obj;
     }
 
-//    @Override
-//    public SlideInflater getPageStateInflater(FragmentManager fm) {
-//        return null;//super.getPageStateInflater(fm);
-//    }
-//
-//    @Override
-//    public SlideInflater getPageInflater(FragmentManager fm) {
-//        return null;// super.getPageInflater(fm);
-//    }
-//
-//    final class SlideInflater extends PageInflater {
-//        SlideInflater(FragmentManager fragmentManager) {
-//            super(fragmentManager);
-//        }
-//
-//        public SlideInflater addSlideRessource(int ressource) {
-//            return this;
-//        }
-//
-//        public SlideInflater addSlideDrawable(Drawable drawable) {
-//
-//            return this;
-//        }
-//
-////        public SlideInflater addSlideUri(Uri... uris) {
-////            for (Uri uri : uris) {
-////                slidePath.add(uri.getPath());
-////            }
-////            return this;
-////        }
-////
-////        public SlideInflater addSlidePath(String... url_or_paths) {
-////            for (String path : url_or_paths) {
-////                path = path.startsWith("/") ? path : "/" + path;
-////                slidePath.add("file://" + path);
-////            }
-////            return this;
-////        }
-//
-//        @Override
-//        protected PagerAdapter onApply(FragmentManager fm, List<Fragment> pages) {
-//            return null;
-//        }
-//
-////        public void start() {
-////            slideAble.startSliding(this.fragmentManager, slideAble.getCurrentItem());
-////        }
-////
-////        public void stop() {
-////            slideAble.stopSliding();
-////        }
-////
-////        public void slideTo(int index) {
-////            slideAble.startSliding(this.fragmentManager, index);
-////        }
-////
-////        void begin() {
-////
-////        }
-////
-////        void end() {
-////
-////        }
-//    }
-
-    public void setOnPageClickListener(OnPageClickListener onPageClickListener) {
-        this.onPageClickListener = onPageClickListener;
+    public void setOnPageClickListener(final OnPageClickListener onPageClickListener) {
+        if (this.getAdapter() != null) {
+            for (int i = 0; i < getAdapter().getCount(); i++) {
+                final PicturePage page = getPage(i);
+                final int finalI = i;
+                page.getImageView().setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onPageClickListener.onPageClicked(finalI, page);
+                    }
+                });
+            }
+        } else {
+        }
     }
 
-    OnPageClickListener onPageClickListener;
-
     public interface OnPageClickListener {
+        void onPageClicked(int index, PicturePage page);
 
     }
 

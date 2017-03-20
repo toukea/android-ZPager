@@ -66,6 +66,11 @@ public class PagerAdapter extends AbsPagerAdapter
         }
     }
 
+    public PagerAdapter(FragmentManager fm, List<Fragment> fragments) {
+        this(fm, fragments.toArray(new Fragment[fragments.size()]));
+    }
+
+
     @Override
     public CharSequence getPageTitle(int position) {
         if (getItem(position) instanceof Page)

@@ -45,7 +45,6 @@ public class PageSlider extends ViewPager {
         try {
             Field field = ViewPager.class.getDeclaredField("mCurItem");
             field.setAccessible(true);
-            Object value = field.get(this);
             field.set(this, initPosition);
         } catch (Exception e) {
             e.printStackTrace();

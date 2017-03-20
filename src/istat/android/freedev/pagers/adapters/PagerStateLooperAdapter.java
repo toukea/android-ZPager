@@ -1,6 +1,7 @@
 package istat.android.freedev.pagers.adapters;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import istat.android.freedev.pagers.pages.Page;
@@ -15,6 +16,10 @@ public class PagerStateLooperAdapter extends PagerStateAdapter {
 
     public PagerStateLooperAdapter(FragmentManager fm, Fragment... fragments) {
         super(fm, fragments);
+    }
+
+    public PagerStateLooperAdapter(FragmentManager fm, List<Fragment> fragments) {
+        super(fm, fragments.toArray(new Fragment[fragments.size()]));
     }
 
     @Override

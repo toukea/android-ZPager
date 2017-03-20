@@ -12,6 +12,8 @@ public class PageAutoTurner implements PageTurner.TurnCallBack, ViewPager.OnPage
     public static int DIRECTION_LEFT = PageTurner.DIRECTION_LEFT, DIRECTION_RIGHT = PageTurner.DIRECTION_RIGHT;
     int interval;
     PageTurner mTurner;
+    boolean autoTurnEnable = true;
+    boolean running = false;
 
     public PageAutoTurner(int turnInterval, PageSlider slider) {
         this.interval = turnInterval;
@@ -33,6 +35,7 @@ public class PageAutoTurner implements PageTurner.TurnCallBack, ViewPager.OnPage
 
     public void start(final int direction) {
         this.direction = direction;
+        this.running = true;
         mTurner.handler.postDelayed(new Runnable() {
 
             @Override
@@ -47,6 +50,7 @@ public class PageAutoTurner implements PageTurner.TurnCallBack, ViewPager.OnPage
     }
 
     public void stop() {
+        running = false;
         mTurner.cancel();
     }
 
@@ -72,12 +76,24 @@ public class PageAutoTurner implements PageTurner.TurnCallBack, ViewPager.OnPage
 
     @Override
     public void onPageScrollStateChanged(int state) {
-        if (ViewPager.SCROLL_STATE_IDLE == state) {
+        if (ViewPager.SCROLL_STATE_IDLE == state && autoTurnEnable) {
             start();
         }
     }
 
     public PageTurner getTurner() {
         return mTurner;
+    }
+
+    public void enableAutoTurn(boolean state) {
+        this.autoTurnEnable = state;
+    }
+
+    public boolean isAutoTurnEnable() {
+        return autoTurnEnable;
+    }
+
+    public boolean isRunning() {
+        return running;
     }
 }
