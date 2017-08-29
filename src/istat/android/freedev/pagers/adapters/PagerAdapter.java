@@ -119,18 +119,31 @@ public class PagerAdapter extends AbsPagerAdapter
             return 0;
     }
 
-//    public Fragment getPageAtIndex(int index) {
-//        if (pages.size() <= index)
-//            return getFragmentManager().findFragmentByTag(TAG_PAGE_PREFIX + index);
-//        Fragment page = pages.get(index);
-//        if (page.getTag() == null) {
-//            Fragment tmpPage = getFragmentManager().findFragmentByTag(TAG_PAGE_PREFIX
-//                    + index);
-//            if (tmpPage != null)
-//                return tmpPage;
-//        }
-//        return page;
-//    }
+    public <T extends Fragment> T getPage(int index, Class<T> cLass) {
+        if (pages.size() <= index)
+            return (T) getFragmentManager().findFragmentByTag(TAG_PAGE_PREFIX + index);
+        Fragment page = pages.get(index);
+        if (page.getTag() == null) {
+            Fragment tmpPage = getFragmentManager().findFragmentByTag(TAG_PAGE_PREFIX
+                    + index);
+            if (tmpPage != null)
+                return (T) tmpPage;
+        }
+        return (T) page;
+    }
+
+    public Fragment getPage(int index) {
+        if (pages.size() <= index)
+            return getFragmentManager().findFragmentByTag(TAG_PAGE_PREFIX + index);
+        Fragment page = pages.get(index);
+        if (page.getTag() == null) {
+            Fragment tmpPage = getFragmentManager().findFragmentByTag(TAG_PAGE_PREFIX
+                    + index);
+            if (tmpPage != null)
+                return tmpPage;
+        }
+        return page;
+    }
 
     public void fixPageCount(int fixedCount) {
         this.fixedCount = fixedCount;

@@ -100,12 +100,12 @@
         "source": "/home/istat/.android/build-cache/61d39bbbc99825dcc98b8befce29451344ff7b7c/output/res/drawable/abc_btn_colored_material.xml"
     },
     {
-        "merged": "/home/istat/Devs/AndroidStudio/Devup/QcmMaker/android-ZPager/build/intermediates/res/merged/androidTest/debug/drawable/abc_dialog_material_background.xml",
-        "source": "/home/istat/.android/build-cache/61d39bbbc99825dcc98b8befce29451344ff7b7c/output/res/drawable/abc_dialog_material_background.xml"
-    },
-    {
         "merged": "/home/istat/Devs/AndroidStudio/Devup/QcmMaker/android-ZPager/build/intermediates/res/merged/androidTest/debug/drawable/abc_spinner_textfield_background_material.xml",
         "source": "/home/istat/.android/build-cache/61d39bbbc99825dcc98b8befce29451344ff7b7c/output/res/drawable/abc_spinner_textfield_background_material.xml"
+    },
+    {
+        "merged": "/home/istat/Devs/AndroidStudio/Devup/QcmMaker/android-ZPager/build/intermediates/res/merged/androidTest/debug/drawable/abc_dialog_material_background.xml",
+        "source": "/home/istat/.android/build-cache/61d39bbbc99825dcc98b8befce29451344ff7b7c/output/res/drawable/abc_dialog_material_background.xml"
     },
     {
         "merged": "/home/istat/Devs/AndroidStudio/Devup/QcmMaker/android-ZPager/build/intermediates/res/merged/androidTest/debug/drawable/abc_text_cursor_material.xml",

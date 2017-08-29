@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/home/istat/Devs/AndroidStudio/Devup/QcmMaker/android-ZPager/build/intermediates/res/merged/release/color-v11/abc_background_cache_hint_selector_material_dark.xml",
+        "source": "/home/istat/.android/build-cache/61d39bbbc99825dcc98b8befce29451344ff7b7c/output/res/color-v11/abc_background_cache_hint_selector_material_dark.xml"
+    },
+    {
+        "merged": "/home/istat/Devs/AndroidStudio/Devup/QcmMaker/android-ZPager/build/intermediates/res/merged/release/color-v11/abc_background_cache_hint_selector_material_light.xml",
+        "source": "/home/istat/.android/build-cache/61d39bbbc99825dcc98b8befce29451344ff7b7c/output/res/color-v11/abc_background_cache_hint_selector_material_light.xml"
+    }
+]

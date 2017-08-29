@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/home/istat/Devs/AndroidStudio/Devup/QcmMaker/android-ZPager/src/main/jniLibs"/></dataSet><dataSet config="debug"><source path="/home/istat/Devs/AndroidStudio/Devup/QcmMaker/android-ZPager/build-types/debug/jniLibs"/></dataSet></merger>
