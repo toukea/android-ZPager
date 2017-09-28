@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-public class Page extends Fragment {
+public abstract class Page extends Fragment {
     protected String title = "";
     protected int icon = 0;
     protected Bundle savedInstanceState;
@@ -23,13 +23,14 @@ public class Page extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (rootView != null) {
-            return rootView;
-        } else {
-            return super.onCreateView(inflater, container, savedInstanceState);
+    public final View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if (rootView == null) {
+            rootView = onCreatePageContain(inflater, container, savedInstanceState);
         }
+        return rootView;
     }
+
+    protected abstract View onCreatePageContain(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
     @Nullable
     @Override
@@ -82,14 +83,14 @@ public class Page extends Fragment {
     }
 
     protected View setContentView(int layout, ViewGroup container) {
-        rootView = (ViewGroup) getDefaultLayoutInflater().inflate(layout,
+        rootView = getDefaultLayoutInflater().inflate(layout,
                 container, false);
         return rootView;
     }
 
     protected View setContentView(int layout, LayoutInflater inflater,
                                   ViewGroup container) {
-        rootView = (ViewGroup) inflater.inflate(layout, container, false);
+        rootView = inflater.inflate(layout, container, false);
         return rootView;
     }
 

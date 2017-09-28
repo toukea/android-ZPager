@@ -20,6 +20,7 @@ import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
@@ -68,7 +69,7 @@ import android.view.ViewGroup;
  * {@sample development/samples/Support4Demos/res/layout/fragment_pager_list.xml
  * complete}
  */
-public abstract class AbsPagerAdapter extends FragmentPagerAdapter {
+public abstract class AbsPagerAdapter extends FragmentStatePagerAdapter {
     private final FragmentManager mFragmentManager;
 
     public AbsPagerAdapter(FragmentManager fm) {

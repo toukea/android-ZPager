@@ -54,7 +54,7 @@ public class PicturePage extends Page {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreatePageContain(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup.LayoutParams layoutParam = container.getLayoutParams();
         imageView = new ImageView(getActivity());
         imageView.setLayoutParams(layoutParam);
