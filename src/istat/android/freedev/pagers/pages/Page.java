@@ -14,6 +14,7 @@ public abstract class Page extends Fragment {
     protected int icon = 0;
     protected Bundle savedInstanceState;
     private View rootView;
+    private int layoutResource;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,14 +24,12 @@ public abstract class Page extends Fragment {
 
     @Nullable
     @Override
-    public final View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (rootView == null) {
-            rootView = onCreatePageContain(inflater, container, savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if (rootView == null && layoutResource != 0) {
+            rootView = inflater.inflate(layoutResource, container, false);
         }
         return rootView;
     }
-
-    protected abstract View onCreatePageContain(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
     @Nullable
     @Override
@@ -82,16 +81,8 @@ public abstract class Page extends Fragment {
         return savedInstanceState != null;
     }
 
-    protected View setContentView(int layout, ViewGroup container) {
-        rootView = getDefaultLayoutInflater().inflate(layout,
-                container, false);
-        return rootView;
-    }
-
-    protected View setContentView(int layout, LayoutInflater inflater,
-                                  ViewGroup container) {
-        rootView = inflater.inflate(layout, container, false);
-        return rootView;
+    protected void setContentView(int layout) {
+        this.layoutResource = layout;
     }
 
     protected final View findViewById(int id) {
@@ -109,6 +100,14 @@ public abstract class Page extends Fragment {
 
     protected Fragment findFragmentByTag(String tag) {
         return getChildFragmentManager().findFragmentByTag(tag);
+    }
+
+    protected boolean existFragmentWithId(int id) {
+        return getChildFragmentManager().findFragmentById(id) != null;
+    }
+
+    protected boolean existFragmentWithTag(String tag) {
+        return getChildFragmentManager().findFragmentByTag(tag) != null;
     }
 
     // ---------------------------------------------

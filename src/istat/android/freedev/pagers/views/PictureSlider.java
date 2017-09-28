@@ -16,7 +16,7 @@ import java.util.List;
 
 import istat.android.freedev.pagers.adapters.PagerLooperAdapter;
 import istat.android.freedev.pagers.adapters.PagerStateLooperAdapter;
-import istat.android.freedev.pagers.adapters.abs.AbsPagerStateAdapter;
+import istat.android.freedev.pagers.adapters.AbsPagerStateAdapter;
 import istat.android.freedev.pagers.pages.PicturePage;
 import istat.android.freedev.pagers.utils.PageAutoTurner;
 

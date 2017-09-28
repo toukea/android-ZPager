@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package istat.android.freedev.pagers.adapters.abs;
+package istat.android.freedev.pagers.adapters;
 
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;

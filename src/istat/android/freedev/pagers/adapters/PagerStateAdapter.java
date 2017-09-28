@@ -1,6 +1,5 @@
 package istat.android.freedev.pagers.adapters;
 
-import istat.android.freedev.pagers.adapters.abs.AbsPagerStateAdapter;
 import istat.android.freedev.pagers.pages.Page;
 
 import java.util.ArrayList;

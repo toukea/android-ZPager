@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package istat.android.freedev.pagers.adapters.abs;
+package istat.android.freedev.pagers.adapters;
 
 import java.util.ArrayList;
 
@@ -28,6 +28,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import istat.android.freedev.pagers.adapters.AbsPagerAdapter;
 import istat.android.freedev.pagers.adapters.PagerStateLooperAdapter;
 
 /**
@@ -183,7 +184,6 @@ public abstract class AbsPagerStateAdapter extends PagerAdapter {
     private void looperDestroyItem(ViewGroup container, int position,
                                    Fragment fragment) {
 
-        PagerStateLooperAdapter adapter = ((PagerStateLooperAdapter) this);
         if (mCurTransaction == null) {
             mCurTransaction = mFragmentManager.beginTransaction();
         }
