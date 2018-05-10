@@ -12,7 +12,7 @@ import java.util.List;
 
 import istat.android.freedev.pagers.adapters.PagerLooperAdapter;
 import istat.android.freedev.pagers.adapters.PagerStateLooperAdapter;
-import istat.android.freedev.pagers.interfaces.SlideAble;
+//import istat.android.freedev.pagers.interfaces.SlideAble;
 
 /**
  * Created by istat on 26/10/16.

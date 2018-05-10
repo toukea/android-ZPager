@@ -10,7 +10,7 @@ public final class PageTurner implements Runnable {
 
     double xPosition = 0;
     TurnConfiguration configuration = new TurnConfiguration();
-    Handler handler = new Handler();
+    final Handler handler;
     ViewPager pager;
     boolean run = true;
     PageTurner parentTurner;
@@ -18,25 +18,25 @@ public final class PageTurner implements Runnable {
     private PageTurner(PageTurner turner, TurnCallBack callBack) {
         this.parentTurner = turner;
         this.pager = turner.pager;
-        turnDirection = turner.turnDirection;
-        configuration = turner.configuration;
-        pager = turner.pager;
+        this.turnDirection = turner.turnDirection;
+        this.configuration = turner.configuration;
+        this.pager = turner.pager;
         this.turnCallBack = callBack;
-
+        this.handler = new Handler();
     }
 
     public PageTurner(ViewPager pager) {
-        this.pager = pager;
+        this(pager, new TurnConfiguration());
     }
 
     public PageTurner(ViewPager pager, TurnConfiguration configuration) {
-        this.pager = pager;
-        this.configuration = configuration;
+        this(pager, configuration, new Handler());
     }
 
-    public PageTurner(Handler handler, ViewPager pager) {
-        this.handler = handler;
+    public PageTurner(ViewPager pager, TurnConfiguration configuration, Handler handler) {
         this.pager = pager;
+        this.configuration = configuration;
+        this.handler = handler;
     }
 
     TurnCallBack turnCallBack;
@@ -86,30 +86,41 @@ public final class PageTurner implements Runnable {
 
     @Override
     public void run() {
-        int previousIndex = pager.getCurrentItem();
-        if (pager.isFakeDragging()) {
-            int velocity = turnDirection * configuration.acceleration
-                    * timeCount + configuration.initialVelocity;
-            if (xPosition < pager.getWidth() - Math.abs(velocity)) {
-                timeCount++;
-                double gap = pager.getWidth() - xPosition;
-                if (gap < velocity)
-                    velocity = (int) (turnDirection * gap);
+        final ViewPager pager = this.pager;
+        try {
+            if (pager == null) {
+                return;
+            }
+            int previousIndex = pager.getCurrentItem();
+            if (pager.isFakeDragging()) {
+                int velocity = turnDirection * configuration.acceleration
+                        * timeCount + configuration.initialVelocity;
+                if (xPosition < pager.getWidth() - Math.abs(velocity)) {
+                    timeCount++;
+                    double gap = pager.getWidth() - xPosition;
+                    if (gap < velocity)
+                        velocity = (int) (turnDirection * gap);
 
-                pager.fakeDragBy(velocity);
-                xPosition = Math.abs(velocity) + xPosition;
-                if (run)
-                    handler.postDelayed(this, configuration.refreshTime);
-            } else {
-                run = false;
-                pager.endFakeDrag();
-                if (turnCallBack != null) {
-                    turnCallBack.onTurnComplete(pager, previousIndex,
-                            previousIndex - turnDirection, turnDirection);
+                    pager.fakeDragBy(velocity);
+                    xPosition = Math.abs(velocity) + xPosition;
+                    if (run)
+                        handler.postDelayed(this, configuration.refreshTime);
+                } else {
+                    run = false;
+                    pager.endFakeDrag();
+                    if (turnCallBack != null) {
+                        turnCallBack.onTurnComplete(pager, previousIndex,
+                                previousIndex - turnDirection, turnDirection);
+                    }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (pager != null) {
+                pager.endFakeDrag();
+            }
+            handler.removeCallbacks(null);
         }
-
     }
 
     public void setTurnerConfiguration(TurnConfiguration configuration) {

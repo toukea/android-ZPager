@@ -70,7 +70,7 @@ public abstract class Page extends Fragment {
     }
 
     public final boolean isReady() {
-        return getView() != null;
+        return getView() != null && !isDetached();
     }
 
     public final boolean isViewCreated() {
@@ -85,10 +85,10 @@ public abstract class Page extends Fragment {
         this.layoutResource = layout;
     }
 
-    protected final View findViewById(int id) {
+    protected final<T extends View> T findViewById(int id) {
         View fragmentView = getView();
         if (fragmentView != null) {
-            return fragmentView.findViewById(id);
+            return (T) fragmentView.findViewById(id);
         } else {
             return null;
         }

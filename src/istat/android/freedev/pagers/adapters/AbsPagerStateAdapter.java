@@ -132,7 +132,7 @@ public abstract class AbsPagerStateAdapter extends PagerAdapter {
 
     private void LooperInstantiateItem(ViewGroup container, int position,
                                        Fragment fragment) {
-        // TODO Auto-generated method stub
+
         if (fragment.getView() != null) {
             if (container == ((ViewGroup) fragment.getView().getParent()))
                 container.removeView(fragment.getView());
@@ -143,7 +143,7 @@ public abstract class AbsPagerStateAdapter extends PagerAdapter {
 
     private void defaultInstantiateItem(ViewGroup container, int position,
                                         Fragment fragment) {
-        // TODO Auto-generated method stub
+
 
         if (mSavedState.size() > position) {
             Fragment.SavedState fss = mSavedState.get(position);
@@ -207,7 +207,7 @@ public abstract class AbsPagerStateAdapter extends PagerAdapter {
 
     private void defaultDestroyItem(ViewGroup container, int position,
                                     Fragment fragment) {
-        // TODO Auto-generated method stub
+
         if (mCurTransaction == null) {
             mCurTransaction = mFragmentManager.beginTransaction();
         }
