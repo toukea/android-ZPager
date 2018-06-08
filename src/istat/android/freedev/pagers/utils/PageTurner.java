@@ -116,9 +116,6 @@ public final class PageTurner implements Runnable {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            if (pager != null) {
-                pager.endFakeDrag();
-            }
             handler.removeCallbacks(null);
         }
     }
