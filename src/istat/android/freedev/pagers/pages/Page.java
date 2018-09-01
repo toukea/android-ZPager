@@ -57,7 +57,7 @@ public abstract class Page extends Fragment {
         this.icon = icon;
     }
 
-    public final void setTitle(String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -85,7 +85,7 @@ public abstract class Page extends Fragment {
         this.layoutResource = layout;
     }
 
-    protected final<T extends View> T findViewById(int id) {
+    protected final <T extends View> T findViewById(int id) {
         View fragmentView = getView();
         if (fragmentView != null) {
             return (T) fragmentView.findViewById(id);
