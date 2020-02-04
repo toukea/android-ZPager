@@ -1,7 +1,7 @@
 package istat.android.freedev.pagers.utils;
 
 import android.os.Handler;
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 
 public final class PageTurner implements Runnable {
     public static int DIRECTION_LEFT = -1, DIRECTION_RIGHT = 1;

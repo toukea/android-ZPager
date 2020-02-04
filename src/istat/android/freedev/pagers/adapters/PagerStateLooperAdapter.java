@@ -6,8 +6,8 @@ import java.util.List;
 
 import istat.android.freedev.pagers.pages.Page;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 public class PagerStateLooperAdapter extends PagerStateAdapter {
     public PagerStateLooperAdapter(FragmentManager fm) {

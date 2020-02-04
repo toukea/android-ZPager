@@ -5,9 +5,9 @@ import istat.android.freedev.pagers.pages.Page;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class PagerLooperAdapter extends PagerAdapter {
     public PagerLooperAdapter(FragmentManager fm) {

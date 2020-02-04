@@ -5,12 +5,12 @@ import istat.android.freedev.pagers.adapters.PagerStateLooperAdapter;
 import istat.android.freedev.pagers.utils.PageTurner;
 
 import android.content.Context;
-import android.support.annotation.CallSuper;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+import androidx.annotation.CallSuper;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
 
 import java.lang.reflect.Field;

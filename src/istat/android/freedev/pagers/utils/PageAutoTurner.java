@@ -1,6 +1,6 @@
 package istat.android.freedev.pagers.utils;
 
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 
 import istat.android.freedev.pagers.views.PageSlider;
 
