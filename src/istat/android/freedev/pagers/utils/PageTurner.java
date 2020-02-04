@@ -93,15 +93,16 @@ public final class PageTurner implements Runnable {
             }
             int previousIndex = pager.getCurrentItem();
             if (pager.isFakeDragging()) {
-                int velocity = turnDirection * configuration.acceleration
-                        * timeCount + configuration.initialVelocity;
-                if (xPosition < pager.getWidth() - Math.abs(velocity)) {
+                double velocity = turnDirection * configuration.acceleration * timeCount + (configuration.initialVelocity * turnDirection);
+                double virtualPosition = xPosition + Math.abs(velocity);
+                if (virtualPosition > pager.getX() && virtualPosition < pager.getX() + pager.getWidth()) {
                     timeCount++;
-                    double gap = pager.getWidth() - xPosition;
-                    if (gap < velocity)
-                        velocity = (int) (turnDirection * gap);
-
-                    pager.fakeDragBy(velocity);
+//                    double remainingDistance = pager.getWidth() - virtualPosition;
+////                    System.out.println("vp=" + virtualPosition + ", rem=" + remainingDistance + ", v=" + velocity);
+//                    if (remainingDistance < Math.abs(velocity)) {
+//                        velocity = turnDirection * remainingDistance;
+//                    }
+                    pager.fakeDragBy((float) (velocity));
                     xPosition = Math.abs(velocity) + xPosition;
                     if (run)
                         handler.postDelayed(this, configuration.refreshTime);
@@ -158,10 +159,10 @@ public final class PageTurner implements Runnable {
         }
     }
 
-    public static interface TurnCallBack {
+    public interface TurnCallBack {
 
-        public void onTurnComplete(ViewPager pager, int previousIndex,
-                                   int index, int direction);
+        void onTurnComplete(ViewPager pager, int previousIndex,
+                            int index, int direction);
     }
 
     public final void cancel() {
