@@ -1,13 +1,15 @@
 package istat.android.freedev.pagers.pages;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 public abstract class Page extends Fragment {
     protected String title = "";
@@ -41,6 +43,7 @@ public abstract class Page extends Fragment {
         return rootView;
     }
 
+    @SuppressLint("RestrictedApi")
     public final LayoutInflater getDefaultLayoutInflater() {
         return getLayoutInflater(getArguments());
     }
