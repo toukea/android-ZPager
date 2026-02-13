@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -26,7 +27,7 @@ public abstract class Page extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (rootView == null && layoutResource != 0) {
             rootView = inflater.inflate(layoutResource, container, false);
         }
@@ -74,6 +75,10 @@ public abstract class Page extends Fragment {
 
     public final boolean isReady() {
         return getView() != null && !isDetached() && getActivity() != null && !getActivity().isFinishing();
+    }
+
+    public final boolean isContextBound(){
+        return getContext() != null;
     }
 
     public final boolean isViewCreated() {
