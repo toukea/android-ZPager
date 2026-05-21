@@ -30,8 +30,22 @@ public abstract class Page extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (rootView == null && layoutResource != 0) {
             rootView = inflater.inflate(layoutResource, container, false);
+        } else if (rootView != null && rootView.getParent() instanceof ViewGroup) {
+            ViewGroup parent = (ViewGroup) rootView.getParent();
+            if (parent != null) {
+                parent.removeView(rootView);
+            }
         }
         return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (rootView != null) {
+            rootView.clearFocus();
+        }
+        super.onDestroyView();
+        rootView = null;
     }
 
     @Nullable
